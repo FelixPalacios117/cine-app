@@ -2,17 +2,17 @@ version: "3.8"
 
 services:
   app:
-    container_name: app-backend
-    image: app-backend
-    restart: always
+    container_name: cine-api
+    image: cine-api
+    #restart: always
     build:
       context: .
       target: development
     volumes:
       - ./src:/app/src
-      - ./images:/images
+      #- ./images:/images
     ports:
-      - 3050:3050
+      - 9090:9090
     networks: 
       frontend: 
         aliases: 
