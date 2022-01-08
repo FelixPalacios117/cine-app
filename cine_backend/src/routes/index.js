@@ -1,25 +1,23 @@
-/* const express=require('express');
-const router=express.Router();
-const customerController=require('../controllers/customerController');
-module.exports=function(){ 
-    //agregar o post
-    router.post('/add_customers/',customerController.add);
-    //leer un cliente
-    router.get('/customers',customerController.showAll);
-    //actualizar
-    router.put('/customers/:id',customerController.update);
-    return router;
-}
- */
+
 const customerController=require('../controllers/customerController');
 
-function routes( express){
+function routes(express){
+    // new-user
+    // delete-user
+    // update-user
+    // get-user
+    // list-user
     const router=express.Router();
-    router.post('/add_customers/',customerController.add);
+    //agregar un cliente
+    router.post('/new-customer',customerController.fileUpload, customerController.add);
     //leer un cliente
-    router.get('/customers',customerController.showAll);
-    //actualizar
-    router.put('/customers/:id',customerController.update);
+    router.get('/get-customer/:id',customerController.showById);
+    //mostrar clientes
+    router.get('/list-customers',customerController.showAll);
+    //actualizar un cliente
+    router.put('/update-customer',customerController.update);
+    //eliminar un cliente
+    router.delete('/delete-customer',customerController.delete);
     return router;
 }
 

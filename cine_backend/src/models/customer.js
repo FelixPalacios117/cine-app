@@ -27,8 +27,7 @@ const CustomerSchema=new Schema({
         required:true
     },
     image:{
-        type:String,
-        required:true
+        type:String
     },
     type:{
         type:Number,
