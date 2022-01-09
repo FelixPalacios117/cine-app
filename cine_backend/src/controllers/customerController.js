@@ -1,11 +1,6 @@
 const Customers = require("../models/customer");
 let Validator = require("validatorjs");
-const { encrypt, decrypt } = require('../middlewares/rsa')
-
-//const multerConfig = require('../utils/multerConfig');
-//const upload=multer(multerConfig).single('image');
-const multer = require('multer');
-const upload = multer({ dest: './images' })
+const { encrypt, decrypt } = require('../middlewares/rsa') 
 
 /* const addCustomersPhoto= (req, res, next) => {
   upload.single('image'),(req,res,function(error){
@@ -26,7 +21,7 @@ const upload = multer({ dest: './images' })
     res.send(400);
   }
 }; */
-exports.fileUpload =(req, res, next) => {
+/*exports.fileUpload =(req, res, next) => {
   try {
     console.log(req.file)
     res.send('image is up');
@@ -34,7 +29,7 @@ exports.fileUpload =(req, res, next) => {
     res.send(400);
   }
   next();
-};
+};*/
 //agregar
 exports.add = async (req, res, next) => {
   let rules = {
@@ -46,10 +41,9 @@ exports.add = async (req, res, next) => {
     type: "required",
   };
 
-  try {
-    console.log('print body:', req.body)
-    const product = new Customers(req.body);
-    /* let args = {
+  try { 
+    console.log('print body:', req.body) 
+    let args = {
       name: req.body.name,
       lastname: req.body.lastname,
       username: req.body.username,
@@ -63,9 +57,11 @@ exports.add = async (req, res, next) => {
     }
     const customer = new Customers(args);
     if(req.file && req.file.filename){
-            customer.image=req.file.filename;
+      customer.image=req.file.filename;
     }
-    await customer.save(); */
+    console.log(customer)
+    
+    await customer.save(); 
     res.json({
       message: "Nuevo cliente agregado correctamente",
     });
@@ -76,35 +72,29 @@ exports.add = async (req, res, next) => {
     });
   }
 };
-
-
-
-
+ 
 exports.update = async (req, res, next) => {
+  let rules = { 
+    name: "required|min:5",
+    lastname: "required|min:5",
+    username: "required|min:5",
+    email: "required", 
+  };
   try {
-    let rules = {
-      id: "required|min:24",
-      name: "required|min:5",
-      lastname: "required|min:5",
-      username: "required|min:5",
-      email: "required",
-      image: "required",
-    };
     console.log('print body:', req.body)
-    let args = {
-      id: decrypt(req.body.id),
+    
+    let args = { 
       name: req.body.name,
       lastname: req.body.lastname,
       username: req.body.username,
-      email: req.body.email,
-      image: req.body.image,
+      email: req.body.email, 
     };
     let validation = new Validator(args, rules);
     if (validation.fails()) {
-      //throw new Error("Invalid arguments validation no pass!");
+      throw new Error("Invalid arguments validation no pass!");
     }
-    /*     const customer = await Customers.findOneAndUpdate(
-          { _id: args.id },
+      const customer = await Customers.findOneAndUpdate(
+          { _id: decrypt(req.params.id) },
           {
             name: args.name,
             lastname: args.lastname,
@@ -113,7 +103,7 @@ exports.update = async (req, res, next) => {
             image: args.image,
           },
           { new:true }
-        ); */
+        ); 
     res.json({
       message: "Cliente actualizado correctamente",
     });
@@ -125,7 +115,7 @@ exports.update = async (req, res, next) => {
   }
 };
 
-//mostrar todos
+//mostrar todos funciona
 
 exports.showAll = async (req, res) => {
   try {

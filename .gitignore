@@ -111,3 +111,4 @@ typings/
 .tern-port
 
 /backend/images/*
+/uploads
