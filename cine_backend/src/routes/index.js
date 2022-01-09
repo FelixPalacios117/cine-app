@@ -1,24 +1,26 @@
+const customerController = require('../controllers/customerController');
+const multer = require('multer');
+const upload = multer({ dest: './images' })
 
-const customerController=require('../controllers/customerController');
 
-function routes(express){
+const routes = async (server) => {
     // new-user
     // delete-user
     // update-user
     // get-user
     // list-user
-    const router=express.Router();
+    //const  router=express.Router();
     //agregar un cliente
-    router.post('/new-customer',customerController.fileUpload, customerController.add);
+    server.post('/new-customer', upload.single('image'), customerController.fileUpload);
     //leer un cliente
-    router.get('/get-customer/:id',customerController.showById);
+    server.get('/get-customer/:id', customerController.showById);
     //mostrar clientes
-    router.get('/list-customers',customerController.showAll);
+    server.get('/list-customers', customerController.showAll);
     //actualizar un cliente
-    router.put('/update-customer',customerController.update);
+    server.put('/update-customer', customerController.update);
     //eliminar un cliente
-    router.delete('/delete-customer',customerController.delete);
-    return router;
+    server.delete('/delete-customer', customerController.delete);
+    //return router;
 }
 
-module.exports ={ routes }
+module.exports = { routes }

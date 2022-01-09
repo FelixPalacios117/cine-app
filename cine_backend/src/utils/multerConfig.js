@@ -4,7 +4,8 @@ const shortid = require('shortid');
 const multerConfig = { 
     storage: fileStorage = multer.diskStorage({
       destination: (req, file, cb) => {
-        cb(null, __dirname+'./uploads/'); // los uploads se subirán en esta carpeta
+        console.log('test',req.file);
+        cb(null, __dirname+'../../uploads/'); // los uploads se subirán en esta carpeta
       },
       filename: (req, file, cb) => {
         // obtener la extensión del archivo

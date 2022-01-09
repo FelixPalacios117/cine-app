@@ -1,34 +1,54 @@
 const Customers = require("../models/customer");
 let Validator = require("validatorjs");
 const { encrypt, decrypt } = require('../middlewares/rsa')
-const multer=require('multer');
-const multerConfig=require('../utils/multerConfig');
-const upload=multer(multerConfig).single('image');
 
-exports.fileUpload=(req,res,next)=>{
-  upload(req,res,function(error){
-      if(error){
-          res.json({
-              message:'On fileUpload'+error
-          });
-      }
-     return next();
+//const multerConfig = require('../utils/multerConfig');
+//const upload=multer(multerConfig).single('image');
+const multer = require('multer');
+const upload = multer({ dest: './images' })
+
+/* const addCustomersPhoto= (req, res, next) => {
+  upload.single('image'),(req,res,function(error){
+    if(error){
+        res.json({
+            message:error
+        });
+    }
+    return next();
   })
-};
+} */
 
+/* exports.fileUpload = upload.single('image'), (req, res, next) => {
+  try {
+    console.log(req)
+    res.send('image is up');
+  } catch (err) {
+    res.send(400);
+  }
+}; */
+exports.fileUpload =(req, res, next) => {
+  try {
+    console.log(req.file)
+    res.send('image is up');
+  } catch (err) {
+    res.send(400);
+  }
+  next();
+};
 //agregar
-exports.add = async (req, res,next) => {  
+exports.add = async (req, res, next) => {
   let rules = {
     name: "required|min:5",
     lastname: "required|min:5",
     username: "required|min:5",
     email: "required",
     password: "required|string|min:24",
-    type: "required", 
+    type: "required",
   };
-  
+
   try {
-    console.log('On add',req.body)
+    console.log('print body:', req.body)
+    const product = new Customers(req.body);
     /* let args = {
       name: req.body.name,
       lastname: req.body.lastname,
@@ -52,12 +72,13 @@ exports.add = async (req, res,next) => {
   } catch (error) {
     console.log(error);
     res.json({
-      message:""+error}); 
+      message: "" + error
+    });
   }
 };
 
 
- 
+
 
 exports.update = async (req, res, next) => {
   try {
@@ -69,7 +90,7 @@ exports.update = async (req, res, next) => {
       email: "required",
       image: "required",
     };
-    console.log('print body:',req.body)
+    console.log('print body:', req.body)
     let args = {
       id: decrypt(req.body.id),
       name: req.body.name,
@@ -82,24 +103,24 @@ exports.update = async (req, res, next) => {
     if (validation.fails()) {
       //throw new Error("Invalid arguments validation no pass!");
     }
-/*     const customer = await Customers.findOneAndUpdate(
-      { _id: args.id },
-      {
-        name: args.name,
-        lastname: args.lastname,
-        email: args.email,
-        username: args.username,
-        image: args.image,
-      },
-      { new:true }
-    ); */
+    /*     const customer = await Customers.findOneAndUpdate(
+          { _id: args.id },
+          {
+            name: args.name,
+            lastname: args.lastname,
+            email: args.email,
+            username: args.username,
+            image: args.image,
+          },
+          { new:true }
+        ); */
     res.json({
       message: "Cliente actualizado correctamente",
     });
     next();
   } catch (error) {
     res.status(404).json({
-      message: "error al procesar"+error,
+      message: "error al procesar" + error,
     });
   }
 };
@@ -107,16 +128,16 @@ exports.update = async (req, res, next) => {
 //mostrar todos
 
 exports.showAll = async (req, res) => {
-  try { 
+  try {
     const customers = await Customers.find({});
-    customers_list =[];
-    let i=0;
-    customers.forEach( async (element) => {//devolver id encriptado
+    customers_list = [];
+    let i = 0;
+    customers.forEach(async (element) => {//devolver id encriptado
       element = element.toObject();
       var temp = encrypt(element._id);
-      element._id="";
-      element.id=temp;
-      customers_list[i]=element;
+      element._id = "";
+      element.id = temp;
+      customers_list[i] = element;
       i++;
     });
     res.json(customers_list);
@@ -131,7 +152,7 @@ exports.showAll = async (req, res) => {
 exports.delete = async (req, res) => {
   try {
     await Customers.findOneAndDelete({
-      _id:  decrypt(req.body.id),
+      _id: decrypt(req.body.id),
     });
     res.json({
       message: "eliminado correctamente",
@@ -142,19 +163,19 @@ exports.delete = async (req, res) => {
     });
   }
 };
-exports.showById=async(req,res,next)=>{
+exports.showById = async (req, res, next) => {
   try {
-      const customer= await Customers.findById(req.params.id)
-      if(!customer){
-          res.status(404).json({
-              message:"El cliente no existe"
-          });
-          next();
-      }
-      res.json(order);
-  } catch (error) {
-      res.status(400).json({
-          message:'error al procesar'+error
+    const customer = await Customers.findById(req.params.id)
+    if (!customer) {
+      res.status(404).json({
+        message: "El cliente no existe"
       });
+      next();
+    }
+    res.json(order);
+  } catch (error) {
+    res.status(400).json({
+      message: 'error al procesar' + error
+    });
   }
 };
