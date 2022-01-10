@@ -87,7 +87,8 @@ typings/
 # Nuxt.js build / generate output
 .nuxt
 
-
+.jpeg
+.png
 
 # Gatsby files
 .cache/
