@@ -1,6 +1,6 @@
 const Customers = require("../models/customer");
 let Validator = require("validatorjs");
-const { encrypt, decrypt } = require('../middlewares/rsa') 
+const { encrypt, decrypt } = require('../middlewares/rsa')
 
 /* const addCustomersPhoto= (req, res, next) => {
   upload.single('image'),(req,res,function(error){
@@ -41,28 +41,28 @@ exports.add = async (req, res, next) => {
     type: "required",
   };
 
-  try { 
-    
-    console.log('print body:', req.body) 
+  try {
+
+    console.log('print body:', req.body)
     let args = {
       name: req.body.name,
       lastname: req.body.lastname,
       username: req.body.username,
       email: req.body.email,
       password: encrypt(req.body.password),
-      type: req.body.type, 
+      type: req.body.type,
     };
     let validation = new Validator(args, rules);
     if (validation.fails()) {
       throw new Error("Invalid arguments validation no pass!");
     }
     const customer = new Customers(args);
-    if(req.file && req.file.filename){
-      customer.image=req.file.filename;
+    if (req.file && req.file.filename) {
+      customer.image = req.file.filename;
     }
     console.log(customer)
-    
-    await customer.save(); 
+
+    await customer.save();
     res.json({
       message: "Nuevo cliente agregado correctamente",
     });
@@ -73,38 +73,38 @@ exports.add = async (req, res, next) => {
     });
   }
 };
- 
+
 exports.update = async (req, res, next) => {
-  let rules = { 
+  let rules = {
     name: "required|min:5",
     lastname: "required|min:5",
     username: "required|min:5",
-    email: "required", 
+    email: "required",
   };
   try {
     console.log('print body:', req.body)
-    
-    let args = { 
+
+    let args = {
       name: req.body.name,
       lastname: req.body.lastname,
       username: req.body.username,
-      email: req.body.email, 
+      email: req.body.email,
     };
     let validation = new Validator(args, rules);
     if (validation.fails()) {
       throw new Error("Invalid arguments validation no pass!");
     }
-      const customer = await Customers.findOneAndUpdate(
-          { _id: decrypt(req.params.id) },
-          {
-            name: args.name,
-            lastname: args.lastname,
-            email: args.email,
-            username: args.username,
-            image: args.image,
-          },
-          { new:true }
-        ); 
+    const customer = await Customers.findOneAndUpdate(
+      { _id: decrypt(req.params.id) },
+      {
+        name: args.name,
+        lastname: args.lastname,
+        email: args.email,
+        username: args.username,
+        image: args.image,
+      },
+      { new: true }
+    );
     res.json({
       message: "Cliente actualizado correctamente",
     });
