@@ -42,6 +42,7 @@ exports.add = async (req, res, next) => {
   };
 
   try { 
+    
     console.log('print body:', req.body) 
     let args = {
       name: req.body.name,

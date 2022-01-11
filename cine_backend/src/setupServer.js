@@ -3,6 +3,8 @@ const cors=require('cors');
 const http=require('http'); 
 const bodyParser = require('body-parser');
 const {routes}=require('./routes');
+const { authenticate } = require("./middlewares/auth")
+
 
 const setupServer= async ()=>{
     var server=express(); 
@@ -15,6 +17,7 @@ const Middleware= async (server)=>{
     server.use(bodyParser.json());
     server.use(bodyParser.urlencoded({extended:true}));
     server.use(cors());
+    server.use(authenticate)
     server.use(express.static(__dirname + '/public'));
     server.use('./uploads', express.static('uploads')); 
 }
