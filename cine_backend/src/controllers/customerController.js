@@ -1,35 +1,6 @@
 const Customers = require("../models/customer");
 let Validator = require("validatorjs");
 const { encrypt, decrypt } = require('../middlewares/rsa')
-
-/* const addCustomersPhoto= (req, res, next) => {
-  upload.single('image'),(req,res,function(error){
-    if(error){
-        res.json({
-            message:error
-        });
-    }
-    return next();
-  })
-} */
-
-/* exports.fileUpload = upload.single('image'), (req, res, next) => {
-  try {
-    console.log(req)
-    res.send('image is up');
-  } catch (err) {
-    res.send(400);
-  }
-}; */
-/*exports.fileUpload =(req, res, next) => {
-  try {
-    console.log(req.file)
-    res.send('image is up');
-  } catch (err) {
-    res.send(400);
-  }
-  next();
-};*/
 //agregar
 exports.add = async (req, res, next) => {
   let rules = {

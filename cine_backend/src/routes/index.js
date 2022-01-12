@@ -5,6 +5,9 @@ const auth = require('../middlewares/auth')
 const customerController = require('../controllers/customerController');
 const funcionesController = require('../controllers/funcionesController');
 const peliculaController = require('../controllers/peliculaController');
+const salaController=require('../controllers/salaController');
+const facturaController=require('../controllers/facturaController');
+
 
 const routes = async (server) => {
   // new-user
@@ -94,7 +97,23 @@ const routes = async (server) => {
   //eliminar un cliente
   server.delete('/delete-funcion/:id', funcionesController.delete);
 
+  //agregar salas
+  server.post('/new-sala',salaController.add);
+  //leer todas
+  server.get('/list-sala',salaController.showAll);
+  //leer una sala
+  server.get('/get-sala/:id',salaController.showById);
+  //actualizar salas
+  server.put('/update-sala/:id',salaController.update);
+  //eliminar una sala
+  server.delete('/delete-sala/:id',salaController.delete);
 
+  //leer todas
+  server.get('/list-factura',facturaController.list);
+  //crear
+  server.post('/new-factura',facturaController.add);
+  //mostrar todas
+  server.post('/get-factura/:id',facturaController.show)
 }
 
 module.exports = { routes }
