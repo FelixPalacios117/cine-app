@@ -1,14 +1,11 @@
-import React from 'react'
+import React from 'react' 
+import { BrowserRouter as Router } from "react-router-dom"; 
+import Routes from "./routes"; 
 function App() {
   return (
-    <div className=" flex flex-row h-screen bg-black">
-      <div className=' bg-blue-600 h-80 basis-1/3'> 
-      k
-      </div>
-      <div className=' bg-black h-80 text-slate-50 basis-1/3'>
-        <p>jaja</p>
-      </div>
-    </div>
+    <Router> 
+      <Routes/>
+      </Router> 
   );
 }
 
