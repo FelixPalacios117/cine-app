@@ -10,7 +10,6 @@ exports.add = async (req, res, next) => {
         classification: "required",
     };
     try {
-        console.log(req.body);
         req.body.picture = req.file.filename;
         let args = {
             name: req.body.name,
@@ -47,6 +46,7 @@ exports.update = async (req, res, next) => {
         classification: "required",
     };
     try {
+        req.body.picture = req.file.filename;
         let args = {
             id: decrypt(req.params.id),
             name: req.body.name,
@@ -59,7 +59,7 @@ exports.update = async (req, res, next) => {
             throw new Error("Invalid arguments validation no pass!");
         }
         const updatePelicula = await Pelicula.findOneAndUpdate(
-            { _id: decrypt(req.params.id) },
+            { _id: args.id },
             args,
             { new: true }
         );
@@ -67,7 +67,7 @@ exports.update = async (req, res, next) => {
             throw new Error("Error actualizar pelicula");
         }
         res.json({
-            message: "Nuevo pelicula agregada correctamente",
+            message: "Pelicula actualizada correctamente",
         });
     } catch (error) {
         console.log(error);
@@ -126,8 +126,7 @@ exports.showById = async (req, res, next) => {
             });
         }
         var peliculaTemp = pelicula.toObject();
-        peliculaTemp.id = encrypt(pelicula._id);
-        delete peliculaTemp._id;
+        peliculaTemp._id = encrypt(pelicula._id);
         delete peliculaTemp.__v;
         res.json(peliculaTemp);
     } catch (error) {
@@ -144,10 +143,8 @@ exports.showAll = async (req, res, next) => {
         let i = 0;
         pelicula.forEach(async (element) => {//devolver id encriptado
             element = element.toObject();
-            var temp = encrypt(element._id);
-            delete element._id;
             delete element.__v;
-            element.id = temp;
+            element._id = encrypt(element._id);
             peliculas_list[i] = element;
             i++;
         });

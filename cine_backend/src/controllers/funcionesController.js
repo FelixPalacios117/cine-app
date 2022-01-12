@@ -20,9 +20,6 @@ exports.add = async (req, res, next) => {
             throw new Error("Invalid arguments validation no pass!");
         }
         const funcion = new Funciones(args);
-/*         if (req.file && req.file.filename) {
-            customer.image = req.file.filename;
-        } */
         const addFuncion = await funcion.save();
 
         if (!addFuncion) {
@@ -88,7 +85,7 @@ exports.delete = async (req, res, next) => {
         if (validation.fails()) {
             throw new Error("Invalid arguments validation no pass!");
         }
-        const deleteFuncion = await funcion_list.findOneAndDelete({
+        const deleteFuncion = await Funciones.findOneAndDelete({
             _id: args.id,
         });
         if (!deleteFuncion) {
@@ -117,13 +114,20 @@ exports.showById = async (req, res, next) => {
         if (validation.fails()) {
             throw new Error("Invalid arguments validation no pass!");
         }
-        const pelicula = await funcion_list.findById(args.id);
-        if (!pelicula) {
+        const funcion = await Funciones.findById(args.id).populate({
+            path: 'idPelicula',
+            model: 'Pelicula',
+        });
+        if (!funcion) {
             res.status(404).json({
-                message: "La pelicula no existe"
+                message: "La funcion no existe"
             });
         }
-        res.json(pelicula);
+        var funcionTemp = funcion.toObject();
+        funcionTemp._id = encrypt(funcion._id);
+        funcionTemp.idPelicula = encrypt(funcion.idPelicula);
+        delete funcionTemp.__v;
+        res.json(funcionTemp);
     } catch (error) {
         console.log(error);
         res.json({
@@ -138,9 +142,9 @@ exports.showAll = async (req, res, next) => {
         let i = 0;
         funcion.forEach(async (element) => {//devolver id encriptado
             element = element.toObject();
-            var temp = encrypt(element._id);
-            element._id = "";
-            element.id = temp;
+            delete element.__v;
+            element._id = encrypt(element._id);
+            element.idPelicula = encrypt(element.idPelicula);
             funcion_list[i] = element;
             i++;
         });
