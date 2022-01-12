@@ -1,6 +1,7 @@
 const Funciones = require("../models/funciones");
 let Validator = require("validatorjs");
-const { encrypt, decrypt } = require('../middlewares/rsa')
+const { encrypt, decrypt } = require('../middlewares/rsa');
+const funciones = require("../models/funciones");
 
 
 exports.add = async (req, res, next) => {
@@ -125,7 +126,11 @@ exports.showById = async (req, res, next) => {
         }
         var funcionTemp = funcion.toObject();
         funcionTemp._id = encrypt(funcion._id);
-        funcionTemp.idPelicula = encrypt(funcion.idPelicula);
+        var pelicula = funcionTemp.idPelicula;
+        pelicula._id = encrypt(pelicula._id);
+        delete pelicula.__v;
+        funcionTemp.pelicula = pelicula;
+        delete funcionTemp.idPelicula;
         delete funcionTemp.__v;
         res.json(funcionTemp);
     } catch (error) {
@@ -137,14 +142,23 @@ exports.showById = async (req, res, next) => {
 };
 exports.showAll = async (req, res, next) => {
     try {
-        const funcion = await Funciones.find({});
+        const funcion = await Funciones.find({}).populate({
+            path: 'idPelicula',
+            model: 'Pelicula',
+        });;
         funcion_list = [];
         let i = 0;
         funcion.forEach(async (element) => {//devolver id encriptado
             element = element.toObject();
             delete element.__v;
             element._id = encrypt(element._id);
-            element.idPelicula = encrypt(element.idPelicula);
+            //element.idPelicula = encrypt(element.idPelicula);
+            var pelicula = element.idPelicula;
+            pelicula._id = encrypt(pelicula._id);
+            delete pelicula.__v;
+            element.pelicula = pelicula;
+            delete element.idPelicula;
+            delete element.__v;
             funcion_list[i] = element;
             i++;
         });
