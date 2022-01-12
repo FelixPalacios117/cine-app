@@ -113,7 +113,7 @@ const routes = async (server) => {
   //crear
   server.post('/new-factura',facturaController.add);
   //mostrar todas
-  server.post('/get-factura/:id',facturaController.show)
+  server.get('/get-factura/:id',facturaController.show);
 }
 
 module.exports = { routes }
