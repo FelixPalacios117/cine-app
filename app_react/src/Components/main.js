@@ -1,10 +1,9 @@
-import { Fragment } from "react";
-import Navbar from "../Layouts/navbar"; 
+import React,{Fragment } from "react";
+import NavBar from "../Layouts/NavBar"; 
 const Main = () => {
   return (
-    <Fragment>  
-        <Navbar /> 
-         
+    <Fragment>   
+      <NavBar type={"main"}/> 
     </Fragment>
   );
 }

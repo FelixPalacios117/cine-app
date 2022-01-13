@@ -5,15 +5,17 @@ import Register from "./Components/register";
 import Main from "./Components/main";
 import ListaFunciones from "./Components/Funciones/listaFunciones";
 import ListaPeliculas from "./Components/Peliculas/listaPeliculas";
+import AgregarPelicula from "./Components/Peliculas/agregarPelicula";
 
 const Routes=()=>(
     <Router>
         <Route exact path="/" component={Login}/> 
-        <Route exact path="/login" component={Login}/>
-        <Route exact path="/register" component={Register}/> 
-        <Route exact path="/main" component={Main}/>
-        <Route exact path="/listaPeliculas" component={ListaPeliculas}/>\
-        <Route exact path="/ListaFunciones" component={ListaFunciones}/>
+        <Route path="/login" component={Login}/>
+        <Route path="/register" component={Register}/> 
+        <Route path="/main" component={Main}/>
+        <Route path="/ListaFunciones" component={ListaFunciones}/>
+        <Route path="/listaPeliculas" component={ListaPeliculas}/>
+        <Route path="/agregarPelicula" component={AgregarPelicula}/>
     </Router>
 )
 export default Routes;
