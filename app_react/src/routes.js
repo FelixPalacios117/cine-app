@@ -6,6 +6,7 @@ import Main from "./Components/main";
 import ListaFunciones from "./Components/Funciones/listaFunciones";
 import ListaPeliculas from "./Components/Peliculas/listaPeliculas";
 import AgregarPelicula from "./Components/Peliculas/agregarPelicula";
+import EditarPeliculas from "./Components/Peliculas/editarPeliculas"; 
 
 const Routes=()=>(
     <Router>
@@ -16,6 +17,7 @@ const Routes=()=>(
         <Route path="/ListaFunciones" component={ListaFunciones}/>
         <Route path="/listaPeliculas" component={ListaPeliculas}/>
         <Route path="/agregarPelicula" component={AgregarPelicula}/>
+        <Route path="/editarPeliculas/:id" component={EditarPeliculas}/>
     </Router>
 )
 export default Routes;
