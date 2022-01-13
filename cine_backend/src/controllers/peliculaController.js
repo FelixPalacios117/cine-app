@@ -6,14 +6,17 @@ exports.add = async (req, res, next) => {
     let rules = {
         name: "required|min:5",
         duration: "required|min:5",
+        director: "required|min:5",
         picture: "required",
         classification: "required",
     };
     try {
+        console.log(req.body);
         req.body.picture = req.file.filename;
         let args = {
             name: req.body.name,
             duration: req.body.duration,
+            director: req.body.director,
             picture: req.body.picture,
             classification: req.body.classification,
         };
@@ -42,6 +45,7 @@ exports.update = async (req, res, next) => {
         id: "required|string|min:24",
         name: "required|min:5",
         duration: "required|min:5",
+        director: "required|min:5",
         picture: "required",
         classification: "required",
     };
@@ -51,6 +55,7 @@ exports.update = async (req, res, next) => {
             id: decrypt(req.params.id),
             name: req.body.name,
             duration: req.body.duration,
+            director: req.body.director,
             picture: req.body.picture,
             classification: req.body.classification,
         };

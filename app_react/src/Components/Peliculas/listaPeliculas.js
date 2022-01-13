@@ -88,7 +88,7 @@ const ListaPeliculas = () => {
                                         key={index}
                                         nombre={item.name}
                                         duracion={item.duration}
-                                        director={"x"}
+                                        director={item.director}
                                         clasificacion={item.classification}
                                         id={item._id}
                                         picture={item.picture}

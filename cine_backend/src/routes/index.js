@@ -71,9 +71,9 @@ const routes = async (server) => {
   //actualizar un cliente
   server.put('/update-movie/:id', (req, res, next) => {
     try {
-      if (!req.verifiedUser) {
+     /*  if (!req.verifiedUser) {
         throw new Error("Unauthorized")
-      }
+      } */
       next()
     } catch (error) {
       res.json({

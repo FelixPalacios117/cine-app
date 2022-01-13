@@ -16,6 +16,10 @@ const PeliculaSchema=new Schema({
     classification:{
         type:String,
         required:true
-    }
+    },
+    director:{
+        type:String,
+        required:true
+    },
 },{timestamps:true})
 module.exports=mongoose.model('Pelicula',PeliculaSchema)

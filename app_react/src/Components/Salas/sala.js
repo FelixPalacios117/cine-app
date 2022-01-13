@@ -1,27 +1,26 @@
-import React from "react";
 import { Link } from "react-router-dom";
-const Peliculas=({nombre,id,director,clasificacion,picture,duracion,onDelete,onEdit})=>{
+
+const Sala = ({id,name,capacity,row,column,disable,onDelete}) => {
     return(
         <tr className="bg-gray-800 text-gray-200">
             <td className="p-5">
-                <img className="rounded-full h-12 w-12   object-cover" src={`http://localhost:9090/uploads/${picture}`} alt={"no hay"}/>
-
-            </td>
-            <td className="p-5">
                 <div className="flex align-items-center">
                     <div className="ml-3">
-                        <div className="">{nombre}</div>
+                        <div className="">{name}</div>
                     </div>
                 </div>
             </td>
             <td className="p-5">
-                {clasificacion}
+                {capacity}
             </td>
             <td className="p-5 font-bold">
-                {director}
+                {row}
             </td>
-            <td className="p-5">
-                <span className=" text-gray-50  rounded-md px-2">{duracion}</span>
+            <td className="p-5 font-bold">
+                {column}
+            </td>
+            <td className="p-5 font-bold">
+                {disable}
             </td>
             <td className="p-5">
 
@@ -45,4 +44,5 @@ const Peliculas=({nombre,id,director,clasificacion,picture,duracion,onDelete,onE
         </tr>
     );
 }
-export default Peliculas;
+
+export default Sala;
