@@ -10,6 +10,7 @@ import EditarPeliculas from "./Components/Peliculas/editarPeliculas";
 import ListaSala from "./Components/Salas/listaSala";
 import AgregarSala from "./Components/Salas/agregarSala";
 import EditarSala from "./Components/Salas/editarSala";
+import SalaLayout from "./Components/Salas/salaLayout";
 
 const Routes=()=>(
     <Router>
@@ -24,6 +25,7 @@ const Routes=()=>(
         <Route path="/listaSalas" component={ListaSala}/>
         <Route path="/agregarSala" component={AgregarSala}/>
         <Route path="/editarSala/:id" component={EditarSala}/>
+        <Route path="/salaLayout/:id/:row/:column" component={SalaLayout}/>
     </Router>
 )
 export default Routes;
