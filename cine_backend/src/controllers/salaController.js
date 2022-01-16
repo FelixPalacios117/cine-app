@@ -43,7 +43,7 @@ exports.update = async (req, res, next) => {
         name: "required|min:5",
         capacity: "required|min:5",
         column: "required",
-        row: "required"
+        row: "required",
     };
     try {
         let args = { 
@@ -64,6 +64,32 @@ exports.update = async (req, res, next) => {
         );
         if (!updateSala) {
             throw new Error("Error actualizar sala");
+        }
+        res.json({
+            message: "Sala modificada correctamente",
+        });
+    } catch (error) {
+        console.log(error);
+        res.json({
+            message: "" + error
+        });
+    }
+};
+
+exports.updateSillas = async (req, res, next) => {
+
+    try {
+        let args = { 
+            disable:req.body.disable
+        };
+        console.log(args);
+        const updateSala = await Sala.findOneAndUpdate(
+            { _id: req.params.id },
+            args,
+            { new: true }
+        );
+        if (!updateSala) {
+            throw new Error("Error actualizar disable");
         }
         res.json({
             message: "Sala modificada correctamente",

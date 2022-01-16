@@ -75,7 +75,7 @@ const ListaSala = () => {
                                         <th className="p-5 text-left">Filas</th>
                                         <th className="p-5 text-left">Columnas</th>
                                         <th className="p-5 text-lef  ">Habilitada</th>
-                                        <th className="p-5 text-left">Layout</th>
+                                       {/*  <th className="p-5 text-left">Layout</th> */}
                                         <th className="p-5 text-left">Editar</th>
                                         <th className="p-5 text-left ">Eliminar</th>
                                     </tr>

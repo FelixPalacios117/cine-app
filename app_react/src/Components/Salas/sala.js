@@ -28,10 +28,10 @@ const Sala = (props) => {
             </td>
             <td className="p-5 font-bold">
                 {props.column}
-            </td>
-            <td className="p-5 font-bold">
+            </td>{/* 
+            <td className="p-5 font-bold whitespace-nowrap">
                 {props.disable}
-            </td>
+            </td> */}
             <td className="p-5">
 
                 <button

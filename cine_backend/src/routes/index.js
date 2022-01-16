@@ -105,6 +105,8 @@ const routes = async (server) => {
   server.get('/get-sala/:id',salaController.showById);
   //actualizar salas
   server.put('/update-sala/:id',salaController.update);
+  server.put('/update-sillas/:id',salaController.updateSillas);
+
   //eliminar una sala
   server.delete('/delete-sala/:id',salaController.delete);
 
