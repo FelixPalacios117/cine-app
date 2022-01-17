@@ -8,10 +8,10 @@ const FuncionesSchema = new Schema({
     idPelicula: {
         type: Schema.Types.ObjectId,
         ref: 'Pelicula',
-    }/* ,
+    },
     idSala: {
         type: Schema.ObjectId,
         ref: 'Sala',
-    }, */
+    }, 
 }, { timestamps: true })
 module.exports = mongoose.model('Funciones', FuncionesSchema)

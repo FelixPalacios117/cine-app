@@ -8,13 +8,13 @@ exports.add = async (req, res, next) => {
     let rules = {
         horario: "required|min:5",
         idPelicula: "required|min:24",
-        idSala: "required|min:24",
+        idSala: "required",
     };
     try {
         let args = {
             horario: req.body.horario,
             idPelicula: decrypt(req.body.idPelicula),
-            idSala: decrypt(req.body.idSala),
+            idSala: req.body.idSala
         };
         let validation = new Validator(args, rules);
         if (validation.fails()) {
@@ -145,7 +145,10 @@ exports.showAll = async (req, res, next) => {
         const funcion = await Funciones.find({}).populate({
             path: 'idPelicula',
             model: 'Pelicula',
-        });;
+        }).populate({
+            path:'idSala',
+            model:'Sala'
+        });
         funcion_list = [];
         let i = 0;
         funcion.forEach(async (element) => {//devolver id encriptado

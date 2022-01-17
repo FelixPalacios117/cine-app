@@ -6,16 +6,19 @@ import { setSala, setDisable, reset } from "../../redux/salaSlice";
 import Box from "./box";
 import axiosCliente from "../../Config/axiosCliente";
 import Swal from "sweetalert2";
-
+import { withRouter } from "react-router-dom";
 
 const SalaLayout = (props) => {
 
-    const { id, row, column, disable } = useSelector(state => state.salaLayout) || props  
+    const { id, row, column, disable,name} = useSelector(state => state.salaLayout)
     const fila = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
     var stantx = [];
     var stanty = [];
     const [sillas, setSillas] = useState([])
     useEffect(() => {
+        if(id.length===0){
+            props.history.push('/listaSalas') 
+        } 
         buildGrid()
     }, [])
     const GuardarSillas=async()=>{ 
@@ -70,7 +73,7 @@ const SalaLayout = (props) => {
                 <Navbar className=" h-full" type={"sala"} />
                 <section className=" h-full">
                     <div className="flex justify-center items-center my-4">
-                        <h1 className="  text-white text-xl   text-center">Sala layout</h1>
+                        <h1 className="  text-white text-xl   text-center">{name}</h1>
                         <button 
                         onClick={GuardarSillas}
                         type="button"
@@ -105,4 +108,4 @@ const SalaLayout = (props) => {
         </>
     );
 }
-export default SalaLayout;
+export default withRouter(SalaLayout);

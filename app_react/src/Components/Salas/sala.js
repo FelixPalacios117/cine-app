@@ -9,7 +9,7 @@ const Sala = (props) => {
     const datos=useSelector(state=>state.salaLayout)
     const setSalaStore = () => { 
         dispatch(setSala({ id:props.id, name:props.name, capacity:props.capacity, row:props.row, column:props.column, disable:props.disable }));
-        props.history.push(`/salaLayout/${props.id}/${props.row}/${props.column}`)
+        props.history.push(`/salaLayout/${props.id}/${props.row}/${props.column}/${props.name}`)
     };
     return (
         <tr className="bg-gray-800 text-gray-200">
@@ -45,7 +45,7 @@ const Sala = (props) => {
             <td className="p-5">
 
                 <Link
-                    to={`/editarPeliculas/${props.id}`}
+                    to={`/editarSalas/${props.id}`}
                     type="button"
                     className="border border-yellow-600 bg-yellow-600 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-yellow-700 focus:outline-none focus:shadow-outline"
                 >

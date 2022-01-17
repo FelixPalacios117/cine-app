@@ -18,8 +18,7 @@ const SalaSchema=new Schema({
         required:true
     },
     disable:{
-        type:String,
-        required:true
+        type:String
     }
 },{timestamps:true})
 module.exports=mongoose.model('Sala',SalaSchema)

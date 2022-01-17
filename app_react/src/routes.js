@@ -24,7 +24,7 @@ const Routes=()=>(
         <Route path="/editarPeliculas/:id" component={EditarPeliculas}/>
         <Route path="/listaSalas" component={ListaSala}/>
         <Route path="/agregarSala" component={AgregarSala}/>
-        <Route path="/editarSala/:id" component={EditarSala}/>
+        <Route path="/editarSalas/:id" component={EditarSala}/>
         <Route path="/salaLayout/:id/:row/:column" component={SalaLayout}/>
     </Router>
 )

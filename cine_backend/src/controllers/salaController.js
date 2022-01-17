@@ -7,8 +7,7 @@ exports.add = async (req, res, next) => {
         name: "required",
         capacity: "required",
         column: "required",
-        row: "required",
-        disable:"required"
+        row: "required" 
     };
     try { 
         let args = {
@@ -16,7 +15,7 @@ exports.add = async (req, res, next) => {
             capacity: req.body.capacity,
             column: req.body.column,
             row: req.body.row,
-            disable:req.body.disable
+            disable:""
         };
         let validation = new Validator(args, rules);
         if (validation.fails()) {
@@ -41,7 +40,7 @@ exports.add = async (req, res, next) => {
 exports.update = async (req, res, next) => {
     let rules = { 
         name: "required|min:5",
-        capacity: "required|min:5",
+        capacity: "required",
         column: "required",
         row: "required",
     };
