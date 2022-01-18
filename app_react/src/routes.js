@@ -11,6 +11,7 @@ import ListaSala from "./Components/Salas/listaSala";
 import AgregarSala from "./Components/Salas/agregarSala";
 import EditarSala from "./Components/Salas/editarSala";
 import SalaLayout from "./Components/Salas/salaLayout";
+import AgregarFunciones from "./Components/Funciones/agregarFunciones";
 
 const Routes=()=>(
     <Router>
@@ -19,6 +20,7 @@ const Routes=()=>(
         <Route path="/register" component={Register}/> 
         <Route path="/main" component={Main}/>
         <Route path="/ListaFunciones" component={ListaFunciones}/>
+        <Route path="/agregarFuncion" component={AgregarFunciones}/>
         <Route path="/listaPeliculas" component={ListaPeliculas}/>
         <Route path="/agregarPelicula" component={AgregarPelicula}/>
         <Route path="/editarPeliculas/:id" component={EditarPeliculas}/>
