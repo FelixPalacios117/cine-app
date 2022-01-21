@@ -55,6 +55,10 @@ const ComprarBoletos = () => {
                                        hora={item.horario}
                                        id={item._id}
                                        key={index} 
+                                       row={item.idSala.row}
+                                       column={item.idSala.column}
+                                       disable={item.idSala.disable}
+                                       comprados={item.comprados}
                                        />
                                 ))} 
                                 </tbody>

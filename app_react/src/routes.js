@@ -33,7 +33,7 @@ const Routes=()=>(
         <Route path="/salaLayout/:id/:row/:column" component={SalaLayout}/>
         <Route path="/editarFuncion/:id" component={EditarFunciones}/>
         <Route path="/comprarBoletos/" component={ComprarBoletos}/>
-        <Route path="/seleccionarAsientos/:id" component={SeleccionarAsientos}/>
+        <Route path="/seleccionarAsientos/:id/:row/:column/:disable/:comprados" component={SeleccionarAsientos}/>
     </Router>
 )
 export default Routes;

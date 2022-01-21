@@ -1,9 +1,9 @@
 const mongoose=require('mongoose');
 const Schema=mongoose.Schema;
 const FacturaSchema=new Schema({
-    customer:{
-        type:Schema.ObjectId,
-        ref:'Customers'
+    customer:{ 
+      type:Schema.ObjectId,
+        ref:'Customers' 
     },
     total:{
         type:Number,
@@ -13,11 +13,11 @@ const FacturaSchema=new Schema({
         type:Date,
         default:Date.now
     },
-    boletos:[{ 
-            funcion:{
-            type:Schema.ObjectId,
-            ref:'Funciones'
-            },
+    funcion:{
+        type:Schema.ObjectId,
+        ref:'Funciones'
+    },
+    boletos:[{  
             tipo:{
                 type:String,
                 required:true

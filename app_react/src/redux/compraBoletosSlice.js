@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   idFuncion: "",
   seleccionBoletos: "",
+  subtotal:0
 };
 
 export const compraBoletosSlice = createSlice({
@@ -11,6 +12,9 @@ export const compraBoletosSlice = createSlice({
   reducers: {
     setBoletos: (state, action) => {
       state.seleccionBoletos = action.payload;
+    },
+    setSubtotal: (state, action) => {
+      state.subtotal += action.payload;
     },
     setIdFuncion: (state, action) => {
       state.idFuncion = action.payload;
@@ -22,6 +26,6 @@ export const compraBoletosSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { setBoletos, setIdFuncion, reset } = compraBoletosSlice.actions;
+export const { setBoletos, setIdFuncion, setSubtotal ,reset } = compraBoletosSlice.actions;
 
 export default compraBoletosSlice.reducer;
