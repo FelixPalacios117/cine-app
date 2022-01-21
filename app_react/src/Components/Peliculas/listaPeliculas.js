@@ -11,8 +11,7 @@ const ListaPeliculas = () => {
     }, [])
     const getPeliculas = async () => {
         const respuesta = await axiosCliente.get('/list-movie')
-        setPeliculas(respuesta.data)
-        console.log(respuesta.data);
+        setPeliculas(respuesta.data) 
     }
     const deleteCliente=async(id)=>{
         const respuesta=await axiosCliente.delete(`/delete-movie/${id}`)

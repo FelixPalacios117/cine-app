@@ -25,7 +25,7 @@ const NavBar = (props) => {
                             <li><NavLink to="/listaFunciones" className={` border-orange-500 pb-2 ${page === "funcion" ? "border-b-2 " : " "}`} >Funciones</NavLink></li>
                             <li><NavLink to="/listaPeliculas" className={` border-orange-500 pb-2 ${page === "pelicula" ? "border-b-2" : " "}`}>Peliculas</NavLink></li>
                             <li><NavLink to="/listaSalas" className={`border-orange-500 pb-2 ${page === 'sala' ? "border-b-2" : " "}`}>Salas</NavLink></li>
-                            <li><NavLink to="/boletos" className={` border-orange-500 pb-2 ${page === 'boleto' ? "border-b-2" : " "}`}>Compra de boletos</NavLink></li>
+                            <li><NavLink to="/comprarBoletos" className={` border-orange-500 pb-2 ${page === 'comprar' ? "border-b-2" : " "}`}>Compra de boletos</NavLink></li>
                             <li><NavLink to="/cerrar" className="cta bg-orange-500 hover:bg-orange-600 px-3 py-2 rounded text-white font-normal">Cerrar sesion</NavLink></li>
                         </ul>
                     </nav>

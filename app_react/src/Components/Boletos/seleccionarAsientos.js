@@ -1,29 +1,37 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Navbar from "../../Layouts/NavBar";
-import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { setSala, setDisable, reset } from "../../redux/salaSlice";
-import Box from "./box";
+import { useState } from "react";
 import axiosCliente from "../../Config/axiosCliente";
-import Swal from "sweetalert2";
-import { withRouter } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import BoxS from "./boxS";
 
-const SalaLayout = (props) => {
-  const { id, row, column, disable, name } = useSelector(
-    (state) => state.salaLayout
-  );
+const SeleccionarAsientos = (props) => {
+   
+  let id= props.match.params.id; 
+  let a="a"
   const fila = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   var stantx = [];
   var stanty = [];
   const [sillas, setSillas] = useState([]);
+  const [datos, setDatos] = useState({});
+  const { idFuncion, seleccionBoletos } = useSelector(
+    (state) => state.compraBoleto
+  );
   useEffect(() => {
-    if (id.length === 0) {
-      props.history.push("/listaSalas");
-    }
-    buildGrid();
-  }, []);
+     getDatos();
+     a="kk"
+  }, [a]);
+  const getDatos = async () => {
+    axiosCliente.get(`/get-funcion/${id}`).then((res) => {
+      console.log('res.data',res.data);
+      setDatos(res.data); 
+      console.log('datos',datos)
+    });
+    // buildGrid();
+  };
+
   const GuardarSillas = async () => {
-    const ob = {
+    /*     const ob = {
       disable: disable,
     };
     await axiosCliente.put(`/update-sillas/${id}`, ob).then((res) => {
@@ -34,25 +42,25 @@ const SalaLayout = (props) => {
         Swal.fire("Modificar sala", res.data.message, "error");
         props.history.push("/listaSalas");
       }
-    });
-  };
+    }); */
+  }; //datos.idSala.r
   const buildGrid = async () => {
-    for (let i = 0; i < row; i++) {
-      for (let j = 0; j < column; j++) {
+    /*     for (let i = 0; i < datos.idSala.row; i++) {
+      for (let j = 0; j < datos.idSala.column; j++) {
         stantx.push(
-          <Box disable={false} f={fila[i]} c={j} key={fila[i] + j} type="">
+          <BoxS disable={false} f={fila[i]} c={j} key={fila[i] + j} type="">
             {" "}
-          </Box>
+          </BoxS>
         );
       }
       stanty.push(stantx);
       stantx = [];
     }
-    if (disable) {
-      disable.split(",").map((item) => {
+    if (datos.idSala.disable) {
+        datos.idSala.disable.split(",").map((item) => {
         if (item.length === 3) {
           stanty[fila.indexOf(item[0])][item[1] + item[2]] = (
-            <Box
+            <BoxS
               disable={true}
               f={fila[fila.indexOf(item[0])]}
               c={item[1] + item[2]}
@@ -60,11 +68,11 @@ const SalaLayout = (props) => {
               type=""
             >
               {" "}
-            </Box>
+            </BoxS>
           );
         } else {
           stanty[fila.indexOf(item[0])][item[1]] = (
-            <Box
+            <BoxS
               disable={true}
               f={fila[fila.indexOf(item[0])]}
               c={item[1]}
@@ -72,31 +80,31 @@ const SalaLayout = (props) => {
               type=""
             >
               {" "}
-            </Box>
+            </BoxS>
           );
         }
       });
     }
-    setSillas(stanty);
+    setSillas(stanty); */
   };
 
   return (
     <>
       <div className=" min-h-screen bg-gray-900">
-        <Navbar className=" h-full" type={"sala"} />
+        <Navbar className=" h-full" type={"comprar"} />
         <section className=" h-full">
           <div className="flex justify-center items-center my-4">
-            <h1 className="  text-white text-xl   text-center">{name}</h1>
             <button
               onClick={GuardarSillas}
               type="button"
               to="/agregarSala"
               className=" border border-blue-500 bg-blue-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-blue-600 focus:outline-none focus:shadow-outline"
             >
-              Guardar
+              Comprar
             </button>
           </div>
           <div className="flex justify-center items-center">
+            {console.log("xx" +(datos))}
             <div className=" ">
               {sillas.map((silla, index) => {
                 return (
@@ -116,4 +124,5 @@ const SalaLayout = (props) => {
     </>
   );
 };
-export default withRouter(SalaLayout);
+
+export default SeleccionarAsientos;

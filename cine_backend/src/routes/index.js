@@ -97,6 +97,8 @@ const routes = async (server) => {
   //eliminar un cliente
   server.delete('/delete-funcion/:id', funcionesController.delete);
 
+  server.put('/compra-boleto/:id',funcionesController.updateCompras);
+
   //agregar salas
   server.post('/new-sala',salaController.add);
   //leer todas

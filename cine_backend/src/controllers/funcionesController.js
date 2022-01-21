@@ -8,7 +8,7 @@ exports.add = async (req, res, next) => {
     let rules = {
         horario: "required|min:5",
         idPelicula: "required|min:24",
-        idSala: "required",
+        idSala: "required" 
     };
     try {
         let args = {
@@ -20,6 +20,7 @@ exports.add = async (req, res, next) => {
         if (validation.fails()) {
             throw new Error("Invalid arguments validation no pass!");
         }
+        args.comprados = 'x';
         const funcion = new Funciones(args);
         const addFuncion = await funcion.save();
 
@@ -29,9 +30,8 @@ exports.add = async (req, res, next) => {
         res.json({
             message: "Funcion agregada correctamente",
         });
-    } catch (error) {
-        console.log(error);
-        res.json({
+    } catch (error) {  
+        res.status(201).json({
             message: "" + error
         });
     }
@@ -41,15 +41,15 @@ exports.update = async (req, res, next) => {
     let rules = {
         id: "required|string|min:24",
         horario: "required|min:5",
-        idPelicula: "required|min:24",
-        idSala: "required|min:24",
+        idPelicula: "required",
+        idSala: "required|min:24" 
     };
     try {
         let args = {
             id: decrypt(req.params.id),
             horario: req.body.horario,
             idPelicula: decrypt(req.body.idPelicula),
-            idSala: decrypt(req.body.idSala),
+            idSala:(req.body.idSala),
         };
         let validation = new Validator(args, rules);
         if (validation.fails()) {
@@ -64,11 +64,44 @@ exports.update = async (req, res, next) => {
             throw new Error("Error actualizar funcion");
         }
         res.json({
-            message: "Funcion agregada correctamente",
+            message: "Funcion modificada correctamente",
         });
     } catch (error) {
         console.log(error);
+        res.status(201).json({
+            message: "" + error
+        });
+    }
+};
+
+exports.updateCompras = async (req, res, next) => {
+    let rules = {
+        id: "required|string|min:24",
+        comprados: "required",
+    };
+    try {
+        let args = {
+            id: decrypt(req.params.id),
+            comprados: req.body.comprados,
+        };
+        let validation = new Validator(args, rules);
+        if (validation.fails()) {
+            throw new Error("Invalid arguments validation no pass!");
+        }
+        const updateFuncion = await Funciones.findOneAndUpdate(
+            { _id: args.id },
+            args,
+            { new: true }
+        );
+        if (!updateFuncion) {
+            throw new Error("Error actualizar funcion");
+        }
         res.json({
+            message: "Funcion modificada correctamente",
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(201).json({
             message: "" + error
         });
     }
@@ -118,9 +151,12 @@ exports.showById = async (req, res, next) => {
         const funcion = await Funciones.findById(args.id).populate({
             path: 'idPelicula',
             model: 'Pelicula',
+        }).populate({
+            path:'idSala',
+            model:'Sala'
         });
         if (!funcion) {
-            res.status(404).json({
+            res.status(201).json({
                 message: "La funcion no existe"
             });
         }

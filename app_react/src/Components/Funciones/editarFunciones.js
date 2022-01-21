@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import NavBar from "../../Layouts/NavBar";
+import Swal from "sweetalert2"; 
+import { useState,useEffect } from "react";
 import CardPelicula from "./cardPelicula";
 import CardSala from "./cardSala";
-import axiosCliente from '../../Config/axiosCliente'
-import Swal from "sweetalert2";
+import axiosCliente from "../../Config/axiosCliente";
 
-const AgregarFunciones = (props) => {
- 
+const EditarFunciones = (props) => {
+  const {id}=props.match.params
   const [peliculas,setPeliculas]=useState([])
   const [salas,setSalas]=useState([])
   const [datos,setDatos]=useState({
@@ -18,9 +19,20 @@ const AgregarFunciones = (props) => {
   } 
    )
   useEffect(()=>{
+    getFuncion()
     getPeliculas() 
-    getSalas()
+    getSalas() 
   },[])
+  const getFuncion=async()=>{
+      const res=await axiosCliente.get(`/get-funcion/${id}`)
+      setDatos({
+        idSala:res.data.idSala._id,
+        idPelicula:res.data.pelicula._id,
+        sala:res.data.idSala.name,
+        pelicula:res.data.pelicula.name,
+        hora:res.data.horario
+    })
+  }
   const getPeliculas=async()=>{
     const respuesta=await axiosCliente.get('/list-movie')
     setPeliculas(respuesta.data) 
@@ -35,7 +47,8 @@ const AgregarFunciones = (props) => {
   const handleSelectSala=(name,id)=>{ 
     setDatos({...datos,sala:name,idSala:id}) 
   }
-  const handleAddFuncion=()=>{  
+  const handleAddFuncion=()=>{ 
+    console.log(datos)
     agregarFuncion()
   }
   const agregarFuncion=async()=>{
@@ -44,19 +57,19 @@ const AgregarFunciones = (props) => {
       idSala:datos.idSala,
       horario:datos.hora
     }
-    await axiosCliente.post('/new-funcion',funcion).
+    await axiosCliente.put(`/update-funcion/${id}`,funcion).
     then(res=>{
       console.log(res); 
       if(res.status===200){
           Swal.fire(
-              'Agregar funcion',
+              'Modificar funcion',
               res.data.message,
               'success'
           )
           props.history.push('/listaFunciones') 
       }else{
           Swal.fire(
-              'Agregar funcion',
+              'Modificar funcion',
               res.data.message,
               'error'
           ) 
@@ -66,9 +79,9 @@ const AgregarFunciones = (props) => {
   const handleChange=(e)=>{
     setDatos({...datos,hora:e.target.value}) 
   }
-  return (
-    <>
-      <div className="min-h-screen  bg-gray-900">
+
+    return (  
+        <div className="min-h-screen  bg-gray-900">
         <NavBar type="funcion"></NavBar>
         <div className="flex flex-col">
           <div className="grid grid-cols-10 py-8 px-24  ">
@@ -79,10 +92,11 @@ const AgregarFunciones = (props) => {
               <h1 className="">Sala seleccionada  : {datos.sala} </h1>
             </div>
             <div className="col-span-4 flex pl-2 justify-evenly items-center  px-2 h-20 bg-gray-800 rounded-md">
-              <h1 className="text-white px-2 text-lg">Horario</h1>
+              <h1 className="text-white px-2 text-lg">Horario :</h1>
               <input
                 type="datetime-local" 
                 onChange={handleChange}
+                defaultValue={datos.hora}
                 className=" px-4 py-1 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               ></input>
               <button
@@ -90,7 +104,7 @@ const AgregarFunciones = (props) => {
                 onClick={handleAddFuncion}
                 className=" border border-blue-600 bg-blue-600 text-white rounded-md px-3 py-1 m-2 transition duration-500 ease select-none hover:bg-blue-700 focus:outline-none focus:shadow-outline"
               >
-                Agregar una funcion
+                Modificar funcion
               </button>
             </div>
           </div>
@@ -122,9 +136,8 @@ const AgregarFunciones = (props) => {
             ))} 
           </div>
         </div>
-      </div>
-    </>
-  );
-};
-
-export default AgregarFunciones;
+      </div> 
+    );
+}
+ 
+export default EditarFunciones;

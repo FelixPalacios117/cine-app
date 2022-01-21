@@ -6,12 +6,17 @@ const FuncionesSchema = new Schema({
         required: true
     },
     idPelicula: {
+        required:true,
         type: Schema.Types.ObjectId,
         ref: 'Pelicula',
     },
     idSala: {
+        required:true,
         type: Schema.ObjectId,
         ref: 'Sala',
     }, 
+    comprados:{
+        type:String
+    },
 }, { timestamps: true })
 module.exports = mongoose.model('Funciones', FuncionesSchema)

@@ -12,6 +12,9 @@ import AgregarSala from "./Components/Salas/agregarSala";
 import EditarSala from "./Components/Salas/editarSala";
 import SalaLayout from "./Components/Salas/salaLayout";
 import AgregarFunciones from "./Components/Funciones/agregarFunciones";
+import EditarFunciones from "./Components/Funciones/editarFunciones";
+import ComprarBoletos from "./Components/Boletos/comprarBoletos";
+import SeleccionarAsientos from "./Components/Boletos/seleccionarAsientos";
 
 const Routes=()=>(
     <Router>
@@ -28,6 +31,9 @@ const Routes=()=>(
         <Route path="/agregarSala" component={AgregarSala}/>
         <Route path="/editarSalas/:id" component={EditarSala}/>
         <Route path="/salaLayout/:id/:row/:column" component={SalaLayout}/>
+        <Route path="/editarFuncion/:id" component={EditarFunciones}/>
+        <Route path="/comprarBoletos/" component={ComprarBoletos}/>
+        <Route path="/seleccionarAsientos/:id" component={SeleccionarAsientos}/>
     </Router>
 )
 export default Routes;
