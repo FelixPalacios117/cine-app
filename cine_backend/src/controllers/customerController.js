@@ -1,6 +1,46 @@
 const Customers = require("../models/customer");
 let Validator = require("validatorjs");
-const { encrypt, decrypt } = require('../middlewares/rsa')
+const { encrypt, decrypt } = require("../middlewares/rsa");
+const { authenticate, createJwtToken } = require("../middlewares/auth");
+
+//login
+exports.login = async (req, res, next) => {
+  let rules = {
+    username: "required|min:5",
+    password: "required|string",
+  };
+  try {
+    let args = {
+      username: req.body.username,
+      password: req.body.password,
+    };
+    let validation = new Validator(args, rules);
+    if (validation.fails()) {
+      throw new Error("Invalid arguments validation no pass!");
+    }
+    const customer = await Customers.findOne({ username: args.username });
+    if (customer===null) {
+      throw new Error("No existe ese usuario ");
+    }
+    if (!(args.password === decrypt(customer.password))) {
+      throw new Error("Invalid credentials ");
+    } else {
+      const token = createJwtToken({
+        _id: encrypt(customer._id),
+        username: customer.username,
+      });
+      res.status(200).json({
+        token: token,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(202).json({
+      message: "" + error,
+    });
+  }
+};
+
 //agregar
 exports.add = async (req, res, next) => {
   let rules = {
@@ -13,8 +53,7 @@ exports.add = async (req, res, next) => {
   };
 
   try {
-
-    console.log('print body:', req.body)
+    console.log("print body:", req.body);
     let args = {
       name: req.body.name,
       lastname: req.body.lastname,
@@ -31,7 +70,7 @@ exports.add = async (req, res, next) => {
     if (req.file && req.file.filename) {
       customer.image = req.file.filename;
     }
-    console.log(customer)
+    console.log(customer);
 
     await customer.save();
     res.json({
@@ -40,7 +79,7 @@ exports.add = async (req, res, next) => {
   } catch (error) {
     console.log(error);
     res.json({
-      message: "" + error
+      message: "" + error,
     });
   }
 };
@@ -53,7 +92,7 @@ exports.update = async (req, res, next) => {
     email: "required",
   };
   try {
-    console.log('print body:', req.body)
+    console.log("print body:", req.body);
 
     let args = {
       name: req.body.name,
@@ -94,7 +133,8 @@ exports.showAll = async (req, res) => {
     const customers = await Customers.find({});
     customers_list = [];
     let i = 0;
-    customers.forEach(async (element) => {//devolver id encriptado
+    customers.forEach(async (element) => {
+      //devolver id encriptado
       element = element.toObject();
       var temp = encrypt(element._id);
       element._id = "";
@@ -127,17 +167,17 @@ exports.delete = async (req, res) => {
 };
 exports.showById = async (req, res, next) => {
   try {
-    const customer = await Customers.findById(req.params.id)
+    const customer = await Customers.findById(req.params.id);
     if (!customer) {
       res.status(404).json({
-        message: "El cliente no existe"
+        message: "El cliente no existe",
       });
       next();
     }
     res.json(order);
   } catch (error) {
     res.status(400).json({
-      message: 'error al procesar' + error
+      message: "error al procesar" + error,
     });
   }
 };

@@ -1,6 +1,58 @@
-import React, { Fragment } from 'react'
+import React, { Fragment,useEffect,useState } from 'react'
 import { Link } from 'react-router-dom';
-const Login = () => {
+import axiosCliente from "../Config/axiosCliente";
+import Swal from 'sweetalert2';
+import { useJwt } from "react-jwt";
+
+const Login = (props) => {
+    const token =localStorage.getItem('token')
+    const { decodedToken, isExpired } = useJwt(token);
+    useEffect(()=>{
+        console.log(token,isExpired )
+        if(token && !isExpired){ 
+            Swal.fire( 
+                "Error",
+                "Ya tienes una sesion iniciada",
+                'error'
+            )
+            props.history.push('/main')
+        }else{
+            localStorage.removeItem('token')
+        }
+    },[])
+    const [usuario,setUsuario]=useState({
+        username:'',
+        password:''
+    })
+    const handleIniciar=(e)=>{
+        e.preventDefault()
+        const cliente=axiosCliente.post('/login-customer',usuario).
+        then(res=>{  
+            if(res.status!==200){
+                Swal.fire(
+                    'Error al iniciar sesion',
+                    res.data.message,
+                    'error'
+                )
+            }else{
+                Swal.fire(
+                    'Iniciar sesion',
+                    res.data.message,
+                    'success'
+                )
+            console.log(res.data.token)
+            localStorage.setItem('token',res.data.token)
+            console.log(localStorage.getItem('token'))
+            props.history.push('/main')
+            }  
+        });
+    }
+    const handleInput=(e)=>{
+        setUsuario({
+            ...usuario,
+            [e.target.name]:e.target.value
+        })
+    }
     return (
         <Fragment>
             <div className="font-sans">
@@ -15,34 +67,18 @@ const Login = () => {
                             <form method="#" action="#" className="mt-10">
 
                                 <div>
-                                    <input type="text" placeholder="Usuario" className="mt-1 p-1 block w-full border-none bg-gray-100 h-11 rounded-xl shadow-lg hover:bg-blue-100 focus:bg-blue-100 focus:ring-0"/>
+                                    <input type="text" name="username" onChange={handleInput} placeholder="Usuario" className="mt-1 p-1 block w-full border-none bg-gray-100 h-11 rounded-xl shadow-lg hover:bg-blue-100 focus:bg-blue-100 focus:ring-0"/>
                                 </div>
 
                                 <div className="mt-7">
-                                    <input type="password" placeholder="Contraseña" className="mt-1 p-1 block w-full border-none bg-gray-100 h-11 rounded-xl shadow-lg hover:bg-blue-100 focus:bg-blue-100 focus:ring-0"/>
-                                </div>
-
-                                {
-                                /*  
-                               <div className="mt-7 flex">
-                                    <label htmlFor="remember_me" className="inline-flex items-center w-full cursor-pointer">
-                                        <input id="remember_me" type="checkbox" className="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="remember"/>
-                                            <span className="ml-2 text-sm text-gray-600">
-                                                Recuerdame
-                                            </span>
-                                    </label>
-
-                                    <div className="w-full text-right">
-                                        <a className="underline text-sm text-gray-600 hover:text-gray-900" href="#">
-                                            ¿Olvidó su contraseña?
-                                        </a>
-                                    </div>
+                                    <input type="password" name="password" onChange={handleInput} placeholder="Contraseña" className="mt-1 p-1 block w-full border-none bg-gray-100 h-11 rounded-xl shadow-lg hover:bg-blue-100 focus:bg-blue-100 focus:ring-0"/>
                                 </div> 
-                                */
-                                }
 
                                 <div className="mt-7">
-                                    <button className="bg-blue-500 w-full py-3 rounded-xl text-white shadow-xl hover:shadow-inner focus:outline-none transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105">
+                                    <button 
+                                    type="submit"
+                                    onClick={handleIniciar}
+                                    className="bg-blue-500 w-full py-3 rounded-xl text-white shadow-xl hover:shadow-inner focus:outline-none transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105">
                                         Iniciar sesion
                                     </button>
                                 </div>

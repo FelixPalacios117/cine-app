@@ -21,7 +21,7 @@ const Routes=()=>(
         <Route exact path="/" component={Login}/> 
         <Route path="/login" component={Login}/>
         <Route path="/register" component={Register}/> 
-        <Route path="/main" component={Main}/>
+        <Route path="/main" component={ListaFunciones}/>
         <Route path="/ListaFunciones" component={ListaFunciones}/>
         <Route path="/agregarFuncion" component={AgregarFunciones}/>
         <Route path="/listaPeliculas" component={ListaPeliculas}/>

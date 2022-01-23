@@ -41,7 +41,10 @@ const routes = async (server) => {
       });
     }
   }, upload.single('image'), customerController.add)
+  //login 
+  server.post('/login-customer',customerController.login);
   //leer un cliente
+  
   server.get('/get-customer/:id', customerController.showById);
   //mostrar clientes
   server.get('/list-customers', customerController.showAll);
