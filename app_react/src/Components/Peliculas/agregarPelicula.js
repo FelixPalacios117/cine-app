@@ -3,7 +3,7 @@ import NavBar from "../../Layouts/NavBar";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axiosCliente from "../../Config/axiosCliente";
-import Swal from "sweetalert2";
+import Swal from "sweetalert2"; 
 
 const AgregarPelicula = (props) => {
     const { register, errors, handleSubmit } = useForm();
@@ -34,7 +34,7 @@ const AgregarPelicula = (props) => {
             } 
         })
     }
-    return (
+    return ( 
         <div className=" min-h-screen bg-gray-900">
             <NavBar type={"pelicula"} />
             <section className="max-w-4xl p-6 mx-auto bg-gray-700 rounded-md shadow-md dark:bg-gray-800 mt-20">
@@ -87,7 +87,7 @@ const AgregarPelicula = (props) => {
                                 })} />
                         </div>
 
-                    </div>
+                    </div> 
                     <div className=" w-full">
                         <label className="block text-sm font-medium text-white">
                             Image

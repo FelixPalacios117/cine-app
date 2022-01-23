@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setBoletos,setSubtotal } from "../../redux/compraBoletosSlice";
 
-const BoxS = ({ disable, inUse, f, c,handleSelect}) => {
+const BoxS = ({ disable, inUse, colr, f, c,handleSelect}) => {
   let selectedBoxs = useSelector((state) => state.compraBoleto.seleccionBoletos).split(",");
   const dispatch = useDispatch();
   const [uso, setUse] = useState(inUse);
-  const [color, setColor] = useState(false);
+  const [color, setColor] = useState(colr?colr:false);
+
+
   const onclick = () => {
     if (color) {
       setColor(false);

@@ -23,7 +23,7 @@ exports.add = async (req, res, next) => {
       boletos: Rboletos,
     };
     let funcion = await Funciones.findById({ _id: ifFuncion });
-    const compra = req.body.boletos + "," + funcion.comprados;
+    const compra = funcion.comprados? req.body.boletos + "," + funcion.comprados:req.body.boletos;
     const updateFuncion = await Funciones.findOneAndUpdate(
       { _id: ifFuncion },
       { comprados: compra },

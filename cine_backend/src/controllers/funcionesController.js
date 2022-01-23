@@ -20,7 +20,7 @@ exports.add = async (req, res, next) => {
         if (validation.fails()) {
             throw new Error("Invalid arguments validation no pass!");
         }
-        args.comprados = 'x';
+        args.comprados = '';
         const funcion = new Funciones(args);
         const addFuncion = await funcion.save();
 
