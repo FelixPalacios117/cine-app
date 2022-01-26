@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { ListaFuncionesRoutingModule } from './lista-funciones-routing.module';
 import { ListaFuncionesComponent } from './lista-funciones.component';
-import { NavBarModule } from '../../others/nav-bar/nav-bar.module';
+import { NavBarModule } from '@app/components/others/nav-bar/nav-bar.module';
+import { RowFuncionModule } from '@app/components/others/row-funcion/row-funcion.module';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import { NavBarModule } from '../../others/nav-bar/nav-bar.module';
   imports: [
     CommonModule,
     ListaFuncionesRoutingModule,
-    NavBarModule
+    NavBarModule,
+    RowFuncionModule,
   ]
 })
 export class ListaFuncionesModule { }

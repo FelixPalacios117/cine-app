@@ -1,0 +1,71 @@
+<div class="min-h-screen bg-gray-900">
+    <app-nav-bar route="peliculas"></app-nav-bar>
+    <section class="h-full">
+      <div class="flex justify-center items-center my-4">
+        <h1 class="text-white text-xl text-center">Listado de pelicula</h1>
+        <a
+          [routerLink]="['/agregarpelicula']" routerLinkActive="router-link-active" 
+          class="border border-blue-500 bg-blue-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-blue-600 focus:outline-none focus:shadow-outline"
+        >
+          Agregar una pelicula
+        </a>
+      </div>
+      <div class="flex justify-center h-max bg-gray-900">
+        <div class="col-span-12">
+          <div class="overflow-auto lg:overflow-visible">
+            <table class="table border-separate space-y-12 text-m">
+              <thead class="bg-gray-800 text-gray-300 pb-4">
+                <tr class="">
+                    <th class="p-5   ">Imagen</th>
+                    <th class="p-5 text-left">Nombre</th>
+                    <th class="p-5 text-left">Clasificacion</th>
+                    <th class="p-5 text-lef  ">Director</th>
+                    <th class="p-5 text-left">Duracion</th>
+                    <th class="p-5 text-left">Editar</th>
+                    <th class="p-5 text-left ">Eliminar</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let item of listPeliculas$ | async as list" class="bg-gray-800 text-gray-200">
+                      <td class="p-5">
+                        <img
+                          class="rounded-full h-12 w-12 object-cover"
+                          src="{{'http://localhost:9090/uploads/'+ item?.picture}} "
+                          alt="no hay"
+                        />
+                      </td>  
+                      <td class="p-5">{{item?.name}}</td>
+                      <td class="p-5">{{item?.classification}}</td>
+                      <td class="p-5 font-bold">{{item?.director}}</td>
+                      <td class="p-5">
+                        <span class="text-gray-50 rounded-md px-2">{{item?.duration}}</span>
+                      </td> 
+                      <div>
+                        <td class="p-5">
+                          <a
+                            type="button"
+                            class="border border-yellow-600 bg-yellow-600 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-yellow-700 focus:outline-none focus:shadow-outline"
+                          >
+                            Editar
+                          </a>
+                        </td>
+                        
+                      </div> 
+                      <td class="p-5">
+                          <button
+                            type="button"
+                            class="border border-red-500 bg-red-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-red-600 focus:outline-none focus:shadow-outline"
+                          >
+                            Eliminar
+                          </button>
+                        </td>
+                    </tr>
+                    
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  

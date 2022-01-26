@@ -1,2 +1,77 @@
-<p>lista-funciones works!</p>
-<app-nav-bar></app-nav-bar>
+<div class="min-h-screen bg-gray-900">
+  <app-nav-bar route="funciones"></app-nav-bar>
+  <section class="h-full">
+    <div class="flex justify-center items-center my-4">
+      <h1 class="text-white text-xl text-center">Listado de funciones</h1>
+      <a
+        type="button"
+        to="/agregarFuncion"
+        class="border border-blue-500 bg-blue-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-blue-600 focus:outline-none focus:shadow-outline"
+      >
+        Agregar una funcion
+      </a>
+    </div>
+    <div class="flex justify-center h-max bg-gray-900">
+      <div class="col-span-12">
+        <div class="overflow-auto lg:overflow-visible">
+          <table class="table border-separate space-y-12 text-m">
+            <thead class="bg-gray-800 text-gray-300 pb-4">
+              <tr class="">
+                <th class="p-5">Imagen</th>
+                <th class="p-5 text-left">Sala</th>
+                <th class="p-5 text-left">Pelicula</th>
+                <th class="p-5 text-left">Clasificacion</th>
+                <th class="p-5 text-lef">Director</th>
+                <th class="p-5 text-left">Duracion</th>
+                <th class="p-5 text-left">Hora</th>
+                <th class="p-5 text-left">Editar</th>
+                <th class="p-5 text-left">Eliminar</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of listFunciones$ | async as list" class="bg-gray-800 text-gray-200">
+                    <td class="p-5">
+                      <img
+                        class="rounded-full h-12 w-12 object-cover"
+                        src="{{'http://localhost:9090/uploads/'+ item?.pelicula?.picture}} "
+                        alt="no hay"
+                      />
+                    </td>
+                    <td class="p-5">{{item?.idSala?.name}}</td>
+                    <td class="p-5">{{item?.pelicula?.name}}</td>
+                    <td class="p-5">{{item?.pelicula?.classification}}</td>
+                    <td class="p-5 font-bold">{{item?.pelicula?.director}}</td>
+                    <td class="p-5">
+                      <span class="text-gray-50 rounded-md px-2">{{item?.pelicula?.duration}}</span>
+                    </td>
+                    <td class="p-5">
+                      <span class="text-gray-50 rounded-md px-2">{{item.horario}}</span>
+                    </td>
+                    <div>
+                      <td class="p-5">
+                        <a
+                          type="button"
+                          class="border border-yellow-600 bg-yellow-600 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-yellow-700 focus:outline-none focus:shadow-outline"
+                        >
+                          Editar
+                        </a>
+                      </td>
+                      
+                    </div> 
+                    <td class="p-5">
+                        <button
+                          type="button"
+                          class="border border-red-500 bg-red-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-red-600 focus:outline-none focus:shadow-outline"
+                        >
+                          Eliminar
+                        </button>
+                      </td>
+                  </tr>
+                  
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

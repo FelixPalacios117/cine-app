@@ -1,1 +1,50 @@
-<p>nav-bar works!</p>
+<div class="header py-6 bg-gray-300">
+  <div class="container px-4 sm:px-8 lg:px-16 xl:px-20 mx-auto">
+    <div class="header-wrapper flex items-center justify-between">
+      <div class="header-logo">
+        <h1 class="font-semibold text-black leading-relaxed">
+          <a to="/main">Cine</a>
+        </h1>
+      </div>
+
+      <div class="toggle md:hidden">
+        <button>
+          <svg
+            class="h-6 w-6 fill-current text-black"
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+
+      <nav class="navbar hidden md:block">
+        <ul class="flex space-x-8 text-sm font-semibold">
+          <li>
+            <a  [routerLink]="['/listafunciones']" routerLinkActive="router-link-active" [ngClass]="{selectedLink: route=='funciones'}" class="border-orange-500 pb-2">Funciones</a>
+          </li>
+          <li>
+            <a [routerLink]="['/listapeliculas']" routerLinkActive="router-link-active" [ngClass]="{selectedLink: route=='peliculas'}"  class="border-orange-500 pb-2">Peliculas</a>
+          </li>
+          <li><a [routerLink]="['/listasalas']"  [ngClass]="{selectedLink: route=='salas'}" class="border-orange-400 pb-2" >Salas</a></li>
+          <li>
+            <a [routerLink]="['/compraboletos']"  [ngClass]="{selectedLink: route=='boletos'}"  class=" border-orange-500 pb-2"
+              >Compra de boletos</a
+            >
+          </li>
+          <li>
+            <a
+              class="bg-orange-500 hover:bg-orange-600 px-3 py-2 rounded text-white font-normal"
+              >Cerrar sesion</a
+            >
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>

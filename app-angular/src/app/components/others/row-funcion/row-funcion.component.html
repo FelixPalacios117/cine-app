@@ -1,0 +1,45 @@
+<tr class="bg-gray-800 text-gray-200">
+  <td class="p-5">
+    <img
+      class="rounded-full h-12 w-12 object-cover"
+      src="{{'http://localhost:9090/uploads/'+image}} "
+      alt="no hay"
+    />
+  </td>
+  <td class="p-5">{{sala}}</td>
+  <td class="p-5">{{pelicula}}</td>
+  <td class="p-5">{{clasificacion}}</td>
+  <td class="p-5 font-bold">{{director}}</td>
+  <td class="p-5">
+    <span class="text-gray-50 rounded-md px-2">{{duracion}}</span>
+  </td>
+  <td class="p-5">
+    <span class="text-gray-50 rounded-md px-2">{{hora}}</span>
+  </td>
+  <div>
+    <td class="p-5">
+      <a
+        type="button"
+        class="border border-yellow-600 bg-yellow-600 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-yellow-700 focus:outline-none focus:shadow-outline"
+      >
+        Editar
+      </a>
+    </td>
+    <td class="p-5">
+      <button
+        type="button"
+        class="border border-red-500 bg-red-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-red-600 focus:outline-none focus:shadow-outline"
+      >
+        Eliminar
+      </button>
+    </td>
+  </div>
+  <td class="p-5">
+    <a
+      type="button"
+      class="border border-green-600 bg-green-600 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-yellow-700 focus:outline-none focus:shadow-outline"
+    >
+      Selecionar
+    </a>
+  </td>
+</tr>
