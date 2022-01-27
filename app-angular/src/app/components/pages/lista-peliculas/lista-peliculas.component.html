@@ -43,6 +43,8 @@
                       <div>
                         <td class="p-5">
                           <a
+                            [routerLink]="['/editarpelicula', item?._id]"
+                            routerLinkActive="router-link-active"
                             type="button"
                             class="border border-yellow-600 bg-yellow-600 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-yellow-700 focus:outline-none focus:shadow-outline"
                           >
@@ -53,6 +55,7 @@
                       </div> 
                       <td class="p-5">
                           <button
+                            (click)="onDeletePelicula(item?._id)"
                             type="button"
                             class="border border-red-500 bg-red-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-red-600 focus:outline-none focus:shadow-outline"
                           >

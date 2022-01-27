@@ -25,7 +25,6 @@ export class ServiceFuncionesService {
         .get<any>('http://localhost:9090/list-funcion')
         .pipe(take(1))
         .subscribe((data) => {
-          console.log('from service',data);
           this.listFuncionesSubject.next(data);
         });
     } catch (error) {
@@ -38,7 +37,6 @@ export class ServiceFuncionesService {
         .get<any>('http://localhost:9090/list-movie')
         .pipe(take(1))
         .subscribe((data) => {
-          console.log('from service',data);
           this.listPeliculaSubject.next(data);
         });
     } catch (error) {
@@ -46,18 +44,4 @@ export class ServiceFuncionesService {
     }
   }
 
-  addNewPelicula(data:FormData): void {
-    try {
-      console.log(data);
-      this.http
-        .get<any>('http://localhost:9090/list-movie')
-        .pipe(take(1))
-        .subscribe((data) => {
-          console.log('from service',data);
-          this.listPeliculaSubject.next(data);
-        });
-    } catch (error) {
-      console.log(error);
-    }
-  }
 }

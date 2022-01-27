@@ -2,13 +2,13 @@
     <app-nav-bar route='peliculas'> </app-nav-bar> 
     <section class="max-w-4xl p-6 mx-auto bg-gray-700 rounded-md shadow-md dark:bg-gray-800 mt-20">
         <h1 class="text-xl font-bold text-white capitalize dark:text-white">Nueva pelicula</h1>
-        <form [formGroup]="agregarPeliculaFM" (ngSubmit)="onSendForm()" >
+        <form [formGroup]="editarPeliculaFM" (ngSubmit)="onSendForm()" >
             <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
                 <div>
                     <label class="text-white dark:text-gray-200" htmlFor="name">Nombre</label>
                     <input
                         formControlName="nombre" 
-                        id="name"
+                        id="name"  
                         type="text"
                         class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"/>
                 </div>
