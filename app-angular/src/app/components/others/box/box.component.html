@@ -1,0 +1,8 @@
+<button
+  (click)="onSelectBox()"
+  [ngClass]="{disableBox: enable==='true',reservedBox: isReserved==='true' }"
+  class="w-9 h-8 mr-4  bg-blue-500 text-md text-white text-center transition duration-500 ease select-none hover:bg-green-600 focus:outline-none focus:shadow-outline"
+>
+  <!--  ${!color ? "bg-blue-800 " : " "} ${color ? "bg-orange-700 " : " "}`>-->
+  <h1 class="p-1">{{ id }}</h1>
+</button>

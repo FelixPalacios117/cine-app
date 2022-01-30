@@ -1,0 +1,46 @@
+<div class="w-full mx-2 max-w-lg">
+  <div class="flex flex-col">
+    <div class="bg-white border border-white shadow-lg rounded-2xl p-4 m-4">
+      <div class="flex-none sm:flex w-max">
+        <div class="relative h-32 w-32 sm:mb-0 mb-3">
+          <img
+            src="{{ 'http://localhost:9090/uploads/' + image }} "
+            alt="imagen"
+            class="w-32 h-32 object-cover rounded-2xl"
+          />
+        </div>
+        <div class="flex-auto sm:ml-5 justify-evenly">
+          <div class="flex items-center justify-between sm:mt-2">
+            <div class="flex items-center">
+              <div class="flex flex-col">
+                <div
+                  class="w-full flex-none text-lg text-gray-600 font-bold leading-none"
+                >
+                  {{ name }}
+                </div>
+                <div class="flex-auto text-lg text-gray-600 my-1 mt-4">
+                  <span class="mr-3">Director :</span
+                  ><span>{{ director }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="flex pt-1 text-lg text-gray-600">
+            <div class="flex-1 inline-flex items-center">
+              <p class="">Duracion : {{ duracion }}</p>
+            </div>
+          </div>
+          <div class="flex-1 inline-flex items-center">
+            <button
+            (click)="onSelectPelicula()"
+              type="button"
+              class="border border-blue-600 bg-blue-600 text-white rounded-md px-3 py-1 my-2 transition duration-500 ease select-none hover:bg-blue-700 focus:outline-none focus:shadow-outline"
+            >
+              Seleccionar pelicula
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+<button
+  *ngIf="enable !== 'true' && isReserved !== 'true'"
+  (click)="onSelectBox()"
+  [ngClass]="{reservedBox: boxSelected}"
+  class="w-9 h-8 mr-4 bg-green-600 text-md text-white text-center transition duration-500 ease select-none hover:bg-blue-600 focus:outline-none focus:shadow-outline"
+>
+  <h1 class="p-1">{{ id }}</h1>
+</button>
+
+<button
+  *ngIf="isReserved === 'true'"
+  [ngClass]="{ disableBox: isReserved === 'true' }"
+  class="w-9 h-8 mr-4 bg-blue-500 text-md text-white text-center transition duration-500 ease select-none hover:bg-green-600 focus:outline-none focus:shadow-outline"
+>
+  <h1 class="p-1">{{ id }}</h1>
+</button>
+
+<button *ngIf="enable === 'true'" class="w-9 h-8 mr-4"></button>

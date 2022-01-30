@@ -3,7 +3,7 @@ const Facturas = require("../models/factura");
 const Funciones = require("../models/funciones");
 
 exports.add = async (req, res, next) => {
-  try {
+  try { 
     const boletosR = req.body.boletos.split(",");
     const ifFuncion = decrypt(req.body.funcion);
     const user =

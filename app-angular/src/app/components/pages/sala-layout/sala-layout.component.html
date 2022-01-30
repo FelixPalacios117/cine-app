@@ -1,0 +1,42 @@
+<div class=" min-h-screen bg-gray-900">
+    <app-nav-bar class=" h-full" type="sala" ></app-nav-bar>
+    <section class=" h-full">
+      <div class="flex justify-center items-center my-4">
+        <h1 class="  text-white text-xl   text-center"></h1>
+        <button
+          type="button"
+          (click)='onSave()'
+          class=" border border-blue-500 bg-blue-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-blue-600 focus:outline-none focus:shadow-outline"
+        >
+          Guardar
+        </button>
+      </div>
+      <div class="flex justify-center items-center">
+
+        <div class="">
+            <div *ngFor="let items of boxlist$ | async as list" class="flex">
+                <div  class="flex">
+                  <div  class="flex flex-row w  w-full  pb-2">
+                      <app-box *ngFor="let item of items " id={{item.id}} enable={{item.enable}} isReserved={{item.isReserved}}></app-box>
+                  </div>
+                </div>
+        </div>
+        
+       
+        </div>
+<!--         <div class=" ">
+          {sillas.map((silla, index) => {
+            return (
+              <div key={index} class="flex">
+                <div class="flex flex-row w  w-full  pb-2">
+                  {silla.map((item, index) => {
+                    return [item];
+                  })}
+                </div>
+              </div>
+            );
+          })}
+        </div> -->
+      </div>
+    </section>
+  </div>

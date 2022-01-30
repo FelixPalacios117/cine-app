@@ -1,0 +1,64 @@
+<div>
+    <div class="min-h-screen  bg-gray-900">
+        <app-nav-bar type="funcion"></app-nav-bar>
+        <div class="flex flex-col">
+          <div class="grid grid-cols-10 py-8 px-24  ">
+            <div class="md:col-span-10 lg:col-span-3 bg-gray-800 flex pl-2 items-center text-white lg:text-lg lg:font-semibold sm:text-white sm:text-md font-semibold rounded-md">
+              <h1 class="">Pelicula seleccionada : {{(peliculaSelected$ |async)?.name}} </h1>
+            </div>
+            <div class="sm:col-span-10 lg:col-span-3 bg-gray-800 flex pl-2 items-center text-white text-lg rounded-md  mx-2">
+              <h1 class="">Sala seleccionada : {{(salaSelected$ |async)?.name}} </h1>
+            </div>
+            <div class="col-span-4 flex pl-2 justify-evenly items-center  px-2 h-20 bg-gray-800 rounded-md">
+              <h1 class="text-white px-2 text-lg">Horario</h1>
+             <!-- <form [formGroup]="form"  (ngSubmit)="onSaveFuncion()"> -->
+                  <input
+                    type="datetime-local"
+                    [(ngModel)]="fecha"
+                    class=" px-4 py-1 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                  />
+                  <button
+                    *ngIf="!operationEdit"
+                    type="submit"
+                    (click)="onSaveFuncion()"
+                    class=" border border-blue-600 bg-blue-600 text-white rounded-md px-3 py-1 m-2 transition duration-500 ease select-none hover:bg-blue-700 focus:outline-none focus:shadow-outline"
+                  >
+                    Agregar una funcion
+                  </button>
+                  <button
+                  *ngIf="operationEdit"
+                  type="submit"
+                  (click)="onEditFuncion()"
+                  class=" border border-blue-600 bg-blue-600 text-white rounded-md px-3 py-1 m-2 transition duration-500 ease select-none hover:bg-blue-700 focus:outline-none focus:shadow-outline"
+                >
+                  Editar una funcion
+                </button>
+          <!--    </form> -->
+
+             
+            </div>
+          </div>
+          <div class="flex justify-center text-white text-xl font-semibold">
+            <h2 class="">Lista de peliculas</h2>
+          </div>
+          <div class="flex space-x-2 shadow-md rounded-lg overflow-x-auto  py-2">
+                <app-card-pelicula  *ngFor="let item of peliculas$ | async as list"
+                id={{item?._id}}
+                name={{item?.name}}
+                director={{item?.director}}
+                duracion={{item?.duration}}
+                image={{item?.picture}}
+              ></app-card-pelicula> 
+          </div>
+          <div class=" flex  space-x-2 pt-4 pb-1 justify-center  overflow-x-auto  w-full">
+                  <app-card-sala *ngFor="let item of salas$ | async as list"
+                  id={{item?._id}}
+                  name={{item?.name}}
+                  capacidad={{item?.capacity}}
+              
+              ></app-card-sala>
+             
+          </div>
+        </div>
+      </div>
+</div>

@@ -5,7 +5,7 @@
       <h1 class="text-white text-xl text-center">Listado de funciones</h1>
       <a
         type="button"
-        to="/agregarFuncion"
+        (click)="onNavigateToAdd()"
         class="border border-blue-500 bg-blue-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-blue-600 focus:outline-none focus:shadow-outline"
       >
         Agregar una funcion
@@ -51,6 +51,8 @@
                       <td class="p-5">
                         <a
                           type="button"
+                          (click)="onNavigateToEdit(item?._id,item?.idSala?._id,item?.pelicula?._id,
+                          item?.idSala?.name,item?.pelicula?.name,item?.horario)"
                           class="border border-yellow-600 bg-yellow-600 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-yellow-700 focus:outline-none focus:shadow-outline"
                         >
                           Editar

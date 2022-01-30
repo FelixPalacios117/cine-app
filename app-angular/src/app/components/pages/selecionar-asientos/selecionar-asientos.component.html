@@ -1,0 +1,53 @@
+<div class="min-h-screen bg-gray-900">
+  <app-nav-bar route="boletos"></app-nav-bar>
+  <section class="h-full">
+    <div class="flex justify-center items-center my-4">
+      <div class="grid grid-cols-12 py-8 px-24 w-full">
+        <div
+          class="md:col-span-10 lg:col-span-3 bg-gray-800 flex pl-2 items-center text-white lg:text-lg lg:font-semibold sm:text-white sm:text-md font-semibold rounded-md"
+        >
+          <h1 class="">Pelicula seleccionada : {{(peliculaSelected$ |async)?.name}}</h1>
+        </div>
+
+        <div
+          class="sm:col-span-10 lg:col-span-3 bg-gray-800 flex pl-2 items-center text-white text-lg rounded-md font-semibold mx-2"
+        >
+          <h1 class="">Sala seleccionada : {{(salaSelected$ |async)?.name}}</h1>
+        </div>
+        <div
+          class="col-span-4 flex pl-2 justify-evenly items-center mr-2 px-2 h-20 bg-gray-800 rounded-md"
+        >
+          <h2 class="text-white font-semibold text-lg">Precio: $4.5</h2>
+          <h2 class="text-white font-semibold text-lg">Subtotal: {{total|async}}$</h2>
+        </div>
+        <div
+          class="col-span-2 flex pl-2 justify-evenly items-center px-2 h-20 bg-gray-800 rounded-md"
+        >
+          <button
+            type="button"
+           (click)="onBougthBoletos()"
+            class="border border-blue-600 bg-blue-600 text-white rounded-md px-3 py-1 m-2 transition duration-500 ease select-none hover:bg-blue-700 focus:outline-none focus:shadow-outline"
+          >
+            Comprar boletos
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="flex justify-center items-center">
+      <div class="">
+        <div *ngFor="let items of boxlist$ | async as list" class="flex">
+          <div class="flex">
+            <div class="flex flex-row w w-full pb-2">
+              <app-box-b
+                *ngFor="let item of items"
+                id="{{ item.id }}"
+                enable="{{ item.enable }}"
+                isReserved="{{ item.isReserved }}"
+              ></app-box-b>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

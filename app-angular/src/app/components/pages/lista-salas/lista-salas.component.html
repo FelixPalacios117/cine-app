@@ -1,0 +1,68 @@
+<div class=" min-h-screen bg-gray-900"> 
+    <app-nav-bar route="salas"></app-nav-bar>
+    <section class=" h-full"> 
+        <div class="flex justify-center items-center my-4">
+            <h1 class="  text-white text-xl   text-center">Listado de salas</h1>
+            <a 
+                
+                [routerLink]="['/agregarsala']" routerLinkActive="router-link-active" 
+                class=" border border-blue-500 bg-blue-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-blue-600 focus:outline-none focus:shadow-outline"
+            >
+                Agregar una sala
+        </a>
+        </div>
+        <div class="flex justify-center h-max   bg-gray-900  ">
+            <div class="col-span-12 ">
+                <div class="overflow-auto lg:overflow-visible ">
+                    <table class="table border-separate space-y-12 text-m ">
+                        <thead class="bg-gray-800 text-gray-300 pb-4">
+                            <tr class="">
+                                <th class="p-5">Nombre</th>
+                                <th class="p-5 text-left">Capacidad</th>
+                                <th class="p-5 text-left">Filas</th>
+                                <th class="p-5 text-left">Columnas</th>
+                                <th class="p-5 text-lef  ">Habilitada</th>
+                               
+                                <th class="p-5 text-left">Editar</th>
+                                <th class="p-5 text-left ">Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody> 
+                            <tr *ngFor="let item of listSalas$ | async as list" class="bg-gray-800 text-gray-200">
+                                <td class="p-5">{{item?.name}}</td>
+                                <td class="p-5">{{item?.capacity}}</td>
+                                <td class="p-5">{{item?.row}}</td>
+                                <td class="p-5">{{item?.column}}</td> 
+                                <td class="p-5">
+                                    <button 
+                                      (click)="onSendDisable(item?.row ,item?.column,item?._id,item?.disable)"
+                                      type="button"
+                                      class="border border-green-500 bg-green-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-green-600 focus:outline-none focus:shadow-outline"
+                                    >
+                                      Ver
+                                    </button>
+                                  </td>
+                                <td class="p-5">
+                                    <button 
+                                      type="button"
+                                      class="border border-yellow-500 bg-yellow-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-yellow-600 focus:outline-none focus:shadow-outline"
+                                    >
+                                      Editar
+                                    </button>
+                                  </td>
+                                  <td class="p-5">
+                                    <button 
+                                      type="button"
+                                      class="border border-red-500 bg-red-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-red-600 focus:outline-none focus:shadow-outline"
+                                    >
+                                      Eliminar
+                                    </button>
+                                  </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

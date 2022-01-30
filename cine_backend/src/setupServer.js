@@ -27,7 +27,7 @@ const startServer = async (server) => {
     const httpServer = new http.createServer(server);
     const io = new socketServer(httpServer, {
         cors: {
-          origin: 'http://localhost:3000',
+          origin: 'http://localhost:4200',
         },
       });
     io.on("connection", (socket) => {
